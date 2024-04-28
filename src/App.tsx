@@ -1,25 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Suspense, useContext, useState, useEffect } from "react";
+import "./App.css";
+import Route from "@/routers/index";
+import { ConfigProvider } from "antd";
+import { themes, themeContext } from "./store/themeContext";
 
 function App() {
+  const { isLightMode } = useContext(themeContext);
+  const [curIsLightMode, setLightMode] = useState(isLightMode);
+
+  useEffect(() => {
+    console.log(`isLightMode ${isLightMode}`);
+  }, [isLightMode]);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Suspense>
+      <themeContext.Provider
+        value={{ isLightMode: curIsLightMode, setLightMode }}
+      >
+        <ConfigProvider theme={curIsLightMode ? themes.light : themes.dark}>
+          <Route />
+        </ConfigProvider>
+      </themeContext.Provider>
+    </Suspense>
   );
 }
 
