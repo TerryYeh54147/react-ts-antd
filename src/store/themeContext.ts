@@ -21,7 +21,7 @@ const darkTheme: ThemeConfig = {
     colorText: "#ffffff",
   }, components: {
     Layout: {
-      triggerBg: "#000000",
+      triggerBg: "#001529",
       triggerColor: "#ffffff",
     }
   }
